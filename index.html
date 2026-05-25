@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kallibr — CX Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F0F4FF;
+    --white: #FFFFFF;
+    --dark: #0F172A;
+    --mid: #334155;
+    --muted: #64748B;
+    --rule: #E2E8F0;
+
+    /* Channel colors — bright, distinct */
+    --c-sms:    #10B981;
+    --c-sms-bg: #ECFDF5;
+    --c-email:  #3B82F6;
+    --c-email-bg: #EFF6FF;
+    --c-call:   #EF4444;
+    --c-call-bg:#FEF2F2;
+    --c-manual: #F59E0B;
+    --c-manual-bg: #FFFBEB;
+    --c-auto:   #8B5CF6;
+    --c-auto-bg:#F5F3FF;
+    --c-warn:   #F97316;
+    --c-warn-bg:#FFF7ED;
+
+    /* Section accent colors */
+    --s1: #6366F1;   /* indigo */
+    --s2: #10B981;   /* emerald */
+    --s3: #3B82F6;   /* blue */
+    --s4: #F59E0B;   /* amber */
+
+    --radius: 12px;
+    --shadow: 0 2px 8px rgba(15,23,42,0.08), 0 0 0 1px rgba(15,23,42,0.06);
+    --shadow-lg: 0 8px 24px rgba(15,23,42,0.12), 0 0 0 1px rgba(15,23,42,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--dark);
+    min-height: 100vh;
+    padding: 40px 28px 80px;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    max-width: 1080px;
+    margin: 0 auto 36px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .header-logo {
+    background: var(--dark);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    padding: 10px 18px;
+    border-radius: 10px;
+  }
+  .header-logo span { color: #818CF8; }
+  .header-titles { flex: 1; }
+  .header-titles h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--dark);
+    line-height: 1.2;
+  }
+  .header-titles p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  .header-badge {
+    background: var(--s1);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+
+  /* ── SHARED PAGE WRAPPER ── */
+  .page { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+  /* ── SECTION BLOCK ── */
+  .section-block {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .section-text h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: -0.2px;
+  }
+  .section-text p {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 1px;
+    font-weight: 500;
+  }
+  .section-body { padding: 24px; }
+
+  /* ── FUNNEL FLOW ── */
+  .funnel-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .funnel-step {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px 16px 18px;
+    position: relative;
+    border-radius: 10px;
+    background: #F8FAFF;
+    border: 1.5px solid var(--rule);
+  }
+
+  .funnel-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .funnel-arrow svg {
+    width: 20px; height: 20px;
+    color: var(--muted);
+  }
+
+  .funnel-step.highlight {
+    background: linear-gradient(135deg, #EEF2FF, #F0FDF4);
+    border-color: var(--s1);
+  }
+
+  .step-emoji {
+    font-size: 28px;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+  .step-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .step-desc {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.4;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .step-pill {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .pill-manual { background: var(--c-manual-bg); color: #92400E; }
+  .pill-auto   { background: var(--c-auto-bg);   color: #5B21B6; }
+  .pill-trigger { background: var(--c-sms-bg);   color: #065F46; }
+
+  /* ── TRIGGER GRID ── */
+  .trigger-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .trigger-card {
+    border-radius: 10px;
+    padding: 18px;
+    border: 1.5px solid var(--rule);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .trigger-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .trigger-card.email::before { background: var(--c-email); }
+  .trigger-card.sms::before   { background: var(--c-sms); }
+  .trigger-card.both::before  { background: linear-gradient(90deg, var(--c-email) 50%, var(--c-sms) 50%); }
+
+  .trigger-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .trigger-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .trigger-icon.email { background: var(--c-email-bg); }
+  .trigger-icon.sms   { background: var(--c-sms-bg); }
+
+  .trigger-card-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .trigger-card-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1.3;
+  }
+  .trigger-card-desc {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.6;
+    font-weight: 500;
+  }
+  .trigger-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    width: fit-content;
+    letter-spacing: 0.3px;
+  }
+  .trigger-tag.manual   { background: var(--c-manual-bg); color: #92400E; }
+  .trigger-tag.workflow { background: var(--c-auto-bg);   color: #5B21B6; }
+
+  /* ── WORKFLOW GRID ── */
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .workflow-card {
+    border-radius: 10px;
+    border: 1.5px solid var(--rule);
+    overflow: hidden;
+  }
+  .workflow-card.wide { grid-column: 1 / -1; }
+
+  .wf-header {
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .wf-header-icon {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .wf-header-text h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .wf-channels {
+    display: flex;
+    gap: 5px;
+    margin-top: 4px;
+  }
+  .ch-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .ch-tag.sms   { background: var(--c-sms-bg);   color: #065F46; }
+  .ch-tag.email { background: var(--c-email-bg); color: #1E40AF; }
+  .ch-tag.call  { background: var(--c-call-bg);  color: #991B1B; }
+
+  .wf-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+
+  .wf-fact {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #F8FAFF;
+  }
+  .wf-fact-icon { font-size: 16px; flex-shrink: 0; }
+  .wf-fact-text { font-size: 12px; color: var(--mid); line-height: 1.5; font-weight: 500; }
+  .wf-fact-text strong { color: var(--dark); font-weight: 700; }
+
+  .wf-wide-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .warn-box {
+    background: var(--c-warn-bg);
+    border: 1.5px solid #FDBA74;
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .warn-box-icon { font-size: 18px; flex-shrink: 0; }
+  .warn-box-text { font-size: 12px; color: #7C2D12; line-height: 1.55; font-weight: 500; }
+  .warn-box-text strong { font-weight: 700; color: #9A3412; }
+
+  /* ── BOTTOM ROW ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* Open items */
+  .open-items { display: flex; flex-direction: column; gap: 0; }
+  .open-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 24px;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s;
+  }
+  .open-item:last-child { border-bottom: none; }
+  .open-item:hover { background: #F8FAFF; }
+  .open-item-icon {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .open-item-text h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 3px;
+  }
+  .open-item-text p {
+    font-size: 12px;
+    color: var(--mid);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  /* Sticky note */
+  .sticky-note {
+    background: #FEFCE8;
+    border: 2px solid #FDE047;
+    border-radius: 12px;
+    padding: 20px 22px;
+    min-width: 230px;
+    box-shadow: 4px 5px 0 #FDE047;
+    transform: rotate(1.2deg);
+  }
+  .sticky-note-header {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #92400E;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sticky-note ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-bottom: 14px;
+  }
+  .sticky-note ul li {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sticky-note ul li::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #EAB308;
+    flex-shrink: 0;
+  }
+  .sticky-note-action {
+    border-top: 1.5px dashed #FDE047;
+    padding-top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #78350F;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    line-height: 1.5;
+  }
+  .sticky-note-action::before {
+    content: '→';
+    font-size: 14px;
+    color: #EAB308;
+    flex-shrink: 0;
+    margin-top: -1px;
+  }
+
+  /* ── LEGEND ── */
+  .legend {
+    max-width: 1080px;
+    margin: 4px auto 0;
+    background: white;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .legend-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mid);
+  }
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 4px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section-block, .legend, .page-header {
+    animation: fadeUp 0.4s ease both;
+  }
+  .section-block:nth-child(1) { animation-delay: 0.05s; }
+  .section-block:nth-child(2) { animation-delay: 0.12s; }
+  .section-block:nth-child(3) { animation-delay: 0.19s; }
+  .section-block:nth-child(4) { animation-delay: 0.26s; }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header" style="animation-delay:0s;">
+  <div class="header-logo">Kallibr<span>.</span></div>
+  <div class="header-titles">
+    <h1>Customer Journey — Original Agreed Design</h1>
+    <p>From first website visit through to automated post-booking workflows &amp; open to-dos</p>
+  </div>
+  <div class="header-badge">Wireframe v1</div>
+</div>
+
+<div class="page">
+
+  <!-- ══ SECTION 1: ENQUIRY FUNNEL ══ -->
+  <div class="section-block">
+    <div class="section-title">
+      <div class="section-num" style="background:var(--s1);">1</div>
+      <div class="section-text">
+        <h2>Enquiry → Booking Funnel</h2>
+        <p>How a student moves from first contact to a confirmed booking in Ax — includes Rubicon state-based routing</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="funnel-flow">
+
+        <div class="funnel-step">
+          <div class="step-emoji">🌐</div>
+          <div class="step-name">Website</div>
+          <div class="step-desc">Student finds Kallibr &amp; lands on course page</div>
+          <span class="step-pill pill-auto">Entry point</span>
+        </div>
+
+        <div class="funnel-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
+        <div class="funnel-step">
+          <div class="step-emoji">📋</div>
+          <div class="step-name">Enrol Form</div>
+          <div class="step-desc">Student submits enquiry / enrolment form online</div>
+          <span class="step-pill pill-auto">Online form</span>
+        </div>
+
+        <div class="funnel-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
+        <div class="funnel-step">
+          <div class="step-emoji">✉️</div>
+          <div class="step-name">CS Email</div>
+          <div class="step-desc">Customer service team receives notification of enquiry</div>
+          <span class="step-pill pill-auto">Auto notify</span>
+        </div>
+
+        <div class="funnel-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
+        <div class="funnel-step">
+          <div class="step-emoji">📞</div>
+          <div class="step-name">CS Call</div>
+          <div class="step-desc">CS team calls the student to confirm &amp; discuss booking</div>
+          <span class="step-pill pill-manual">👤 Manual</span>
+        </div>
+
+        <div class="funnel-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+
+        <div class="funnel-step highlight">
+          <div class="step-emoji">✅</div>
+          <div class="step-name">Book in Ax</div>
+          <div class="step-desc">Booking created in aXcelerate — triggers actions below</div>
+          <span class="step-pill pill-trigger">⚡ Triggers →</span>
+        </div>
+
+      </div>
+
+      <!-- Rubicon note inline -->
+      <div style="margin-top:16px; background:#F5F3FF; border-radius:10px; padding:14px 18px; border:1.5px solid #C4B5FD; display:flex; align-items:center; gap:12px;">
+        <span style="font-size:22px;">🗺️</span>
+        <div>
+          <div style="font-size:13px; font-weight:700; color:#4C1D95; margin-bottom:2px;">Rubicon — State Guide</div>
+          <div style="font-size:12px; color:#6D28D9; font-weight:500; line-height:1.5;">State-based routing rules (Rubicon) determine how enquiries are handled and which team member manages the call — this flows into the funnel above before the CS Call step.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 2: BOOKING TRIGGERS ══ -->
+  <div class="section-block">
+    <div class="section-title">
+      <div class="section-num" style="background:var(--s2);">2</div>
+      <div class="section-text">
+        <h2>On Booking — Triggered Actions</h2>
+        <p>Three things that happen immediately after a booking is created in Ax</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="trigger-grid">
+
+        <div class="trigger-card email">
+          <div class="trigger-card-top">
+            <div class="trigger-icon email">✉️</div>
+            <div>
+              <div class="trigger-card-label">Action 1</div>
+              <div class="trigger-card-name">Booking Confirmation Email</div>
+            </div>
+          </div>
+          <div class="trigger-card-desc">Booking confirmation email is sent to the student with course details, date, location and portal login instructions.</div>
+          <span class="trigger-tag manual">👤 Manual send</span>
+        </div>
+
+        <div class="trigger-card email">
+          <div class="trigger-card-top">
+            <div class="trigger-icon email">🧾</div>
+            <div>
+              <div class="trigger-card-label">Action 2 — COD students only</div>
+              <div class="trigger-card-name">Invoice Generated &amp; Sent</div>
+            </div>
+          </div>
+          <div class="trigger-card-desc">Invoice is created and emailed to the student (or organisation). Applies to Cash on Delivery payment type only.</div>
+          <span class="trigger-tag manual">👤 Manual send</span>
+        </div>
+
+        <div class="trigger-card sms">
+          <div class="trigger-card-top">
+            <div class="trigger-icon sms">💬</div>
+            <div>
+              <div class="trigger-card-label">Action 3 — All students</div>
+              <div class="trigger-card-name">Immediate SMS to Student</div>
+            </div>
+          </div>
+          <div class="trigger-card-desc">Instant SMS fired the moment booking is created. Thanks the student, asks them to check email and log into their Learner Portal.</div>
+          <span class="trigger-tag workflow">⚡ Automated workflow (W)</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 3: WORKFLOWS ══ -->
+  <div class="section-block">
+    <div class="section-title">
+      <div class="section-num" style="background:var(--s3);">3</div>
+      <div class="section-text">
+        <h2>Current Automated Workflows</h2>
+        <p>Ongoing automated comms that run in the background after booking — sorted by student / payment type</p>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="workflow-grid">
+
+        <!-- Instant Exit -->
+        <div class="workflow-card">
+          <div class="wf-header" style="background:#ECFDF5;">
+            <div class="wf-header-icon" style="background:white;">⚡</div>
+            <div class="wf-header-text">
+              <h3>Instant Exit SMS</h3>
+              <div class="wf-channels">
+                <span class="ch-tag sms">SMS</span>
+              </div>
+            </div>
+          </div>
+          <div class="wf-body">
+            <div class="wf-fact">
+              <div class="wf-fact-icon">🕐</div>
+              <div class="wf-fact-text">Fires <strong>immediately</strong> at time of booking — single send, no follow-up.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">👥</div>
+              <div class="wf-fact-text">Sent to <strong>all students</strong> regardless of payment or course type.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">📝</div>
+              <div class="wf-fact-text">Content: Thank you + check email + log into Learner Portal.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Onboarding -->
+        <div class="workflow-card">
+          <div class="wf-header" style="background:#EFF6FF;">
+            <div class="wf-header-icon" style="background:white;">🔁</div>
+            <div class="wf-header-text">
+              <h3>Onboarding Workflow</h3>
+              <div class="wf-channels">
+                <span class="ch-tag sms">SMS</span>
+                <span class="ch-tag email">Email</span>
+              </div>
+            </div>
+          </div>
+          <div class="wf-body">
+            <div class="wf-fact">
+              <div class="wf-fact-icon">📅</div>
+              <div class="wf-fact-text">Starts <strong>10 days before</strong> the course date.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">🔄</div>
+              <div class="wf-fact-text">Repeats <strong>every 2 days at 3:00 PM</strong> until student has onboarded in portal.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">✅</div>
+              <div class="wf-fact-text">GTL version — <strong>currently live</strong>.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cash Individual -->
+        <div class="workflow-card">
+          <div class="wf-header" style="background:#FFFBEB;">
+            <div class="wf-header-icon" style="background:white;">💰</div>
+            <div class="wf-header-text">
+              <h3>Cash Individual</h3>
+              <div class="wf-channels">
+                <span class="ch-tag sms">SMS</span>
+                <span class="ch-tag email">Email</span>
+              </div>
+            </div>
+          </div>
+          <div class="wf-body">
+            <div class="wf-fact">
+              <div class="wf-fact-icon">📅</div>
+              <div class="wf-fact-text">Starts <strong>8 days before</strong> the course date.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">🔄</div>
+              <div class="wf-fact-text">Sends a <strong>maximum of every 4</strong> — prevents over-messaging.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">👤</div>
+              <div class="wf-fact-text">For <strong>individual students</strong> paying by cash/COD.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- COD Corporate — full width -->
+        <div class="workflow-card wide">
+          <div class="wf-header" style="background:#EFF6FF;">
+            <div class="wf-header-icon" style="background:white;">🏢</div>
+            <div class="wf-header-text">
+              <h3>COD Corporate</h3>
+              <div class="wf-channels">
+                <span class="ch-tag email">Email only</span>
+              </div>
+            </div>
+          </div>
+          <div class="wf-body">
+            <div class="wf-wide-grid">
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div class="wf-fact">
+                  <div class="wf-fact-icon">✉️</div>
+                  <div class="wf-fact-text">Payment / invoice reminder sent via <strong>email only</strong> — no SMS for corporate accounts.</div>
+                </div>
+                <div class="wf-fact">
+                  <div class="wf-fact-icon">📄</div>
+                  <div class="wf-fact-text">Uses the <strong>Basic Email Template</strong> — a CSQ-specific version is still to be confirmed.</div>
+                </div>
+              </div>
+              <div class="warn-box">
+                <div class="warn-box-icon">⚠️</div>
+                <div class="warn-box-text">
+                  <strong>Dependency — accounts team action required:</strong><br>
+                  This workflow relies on the accounts team manually editing the <em>bill-to address</em> in the system before the automated email can send correctly. Currently a blocker.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SECTION 4: OPEN ITEMS ══ -->
+  <div class="section-block">
+    <div class="section-title">
+      <div class="section-num" style="background:var(--s4);">4</div>
+      <div class="section-text">
+        <h2>Outstanding Items &amp; Open Questions</h2>
+        <p>Things still to be built, decided or unblocked before the journey is complete</p>
+      </div>
+    </div>
+    <div class="bottom-row" style="padding:0; gap:0;">
+      <div class="open-items">
+        <div class="open-item">
+          <div class="open-item-icon" style="background:#FEE2E2;">🚧</div>
+          <div class="open-item-text">
+            <h4>Pre-Learning Workflow — Not yet built</h4>
+            <p>Required for Forklift and EWP students. Pre-learning is mandatory — this workflow needs to nudge students to complete modules before Day 1.</p>
+          </div>
+        </div>
+        <div class="open-item">
+          <div class="open-item-icon" style="background:#D1FAE5;">📈</div>
+          <div class="open-item-text">
+            <h4>Upsell EDMs — Not yet mapped to Ax triggers</h4>
+            <p>During-course upsell emails (Day 1, 2, 3) have been designed but are not yet connected to automated workflow triggers in aXcelerate.</p>
+          </div>
+        </div>
+        <div class="open-item">
+          <div class="open-item-icon" style="background:#FEF3C7;">💳</div>
+          <div class="open-item-text">
+            <h4>Pay Reminder — Dedicated email needed</h4>
+            <p>A standalone payment reminder email is required — separate from the onboarding nudge flow. Should be a dedicated, clearly branded comms piece.</p>
+          </div>
+        </div>
+        <div class="open-item">
+          <div class="open-item-icon" style="background:#EDE9FE;">❓</div>
+          <div class="open-item-text">
+            <h4>CSQ Version of Basic Email Template</h4>
+            <p>Does a CSQ-specific version of the booking confirmation / onboarding email template need to be created? To be confirmed.</p>
+          </div>
+        </div>
+        <div class="open-item">
+          <div class="open-item-icon" style="background:#FFF7ED;">⚙️</div>
+          <div class="open-item-text">
+            <h4>COD Corp — Accounts Team Dependency</h4>
+            <p>Corporate invoice emails rely on the accounts team editing the bill-to address before the workflow sends. Needs a process fix or system automation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky note -->
+      <div style="padding:24px;">
+        <div class="sticky-note">
+          <div class="sticky-note-header">📌 To Do</div>
+          <ul>
+            <li>Pre Learning</li>
+            <li>Upsell</li>
+          </ul>
+          <div class="sticky-note-action">Pay reminder — dedicated email</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .page -->
+
+<!-- LEGEND -->
+<div class="legend" style="margin-top:28px; animation-delay:0.32s;">
+  <span class="legend-title">Key</span>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-sms)"></div> SMS</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-email)"></div> Email</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-call)"></div> Phone Call</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-manual)"></div> Manual step — team action needed</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-auto)"></div> Automated — system / workflow</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--c-warn)"></div> Warning / blocker</div>
+</div>
+
+</body>
+</html>
