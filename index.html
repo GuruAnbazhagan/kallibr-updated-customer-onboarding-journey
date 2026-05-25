@@ -1129,7 +1129,7 @@ const modalData = {
       fields: ['Trainee Given Name', 'Trainee Email Address'],
       note: 'Phone number shown is Carrara (GL Training). Non-Carrara version — confirm if 1300 668 141 applies.'
     },
-    email: { text: 'Onboarding nudge email — sent alongside SMS. Template TBC.' },
+    emailPreview: true,
     note: null
   },
 
@@ -1168,6 +1168,10 @@ function openModal(id) {
   const d = modalData[id];
   if (!d) return;
 
+  // Widen modal for onboarding (has email preview)
+  const box = document.getElementById('modal-box');
+  box.style.maxWidth = d.emailPreview ? '720px' : '560px';
+
   const workflowsHtml = d.workflows.map(w => `
     <div class="wf-name-pill">
       <div class="dot" style="background:#6366F1;"></div>
@@ -1186,7 +1190,13 @@ function openModal(id) {
       ${d.sms.note ? `<div class="modal-note">ℹ️ ${d.sms.note}</div>` : ''}
     </div>` : '';
 
-  const emailHtml = d.email ? `
+  const emailHtml = d.emailPreview ? `
+    <div class="modal-content-block" style="padding:0; overflow:hidden;">
+      <div class="modal-content-block-label email" style="padding:12px 16px 0 16px;">✉️ Email Template — Onboarding Reminder</div>
+      <div style="background:#f1f4f6; border-radius:0 0 10px 10px; overflow:auto; max-height:480px; padding:16px 12px;">
+        ${getOnboardingEmailHTML()}
+      </div>
+    </div>` : d.email ? `
     <div class="modal-content-block">
       <div class="modal-content-block-label email">✉️ Email Content</div>
       <div class="modal-sms-text">${d.email.text}</div>
@@ -1223,8 +1233,91 @@ function formatFields(text) {
     .replace(/\[([^\]]+)\]/g, '<span class="modal-field">[$1]</span>');
 }
 
+function getOnboardingEmailHTML() {
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f1f4f6;">
+  <tr><td align="center">
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width:600px;width:100%;background-color:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08);">
+    <tr><td style="background-color:#009f9c;padding:20px 28px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
+        <td valign="middle"><img src="https://kallibr.com.au/wp-content/uploads/2021/03/Kallibr-Group-Logo_Horizontal_for-on-Mint.png" alt="Kallibr Training" width="180" style="display:block;width:180px;height:auto;border:0;"></td>
+        <td align="right" valign="middle" style="font-size:11px;color:#ffffff;line-height:1.6;font-family:Helvetica,Arial,sans-serif;white-space:nowrap;">
+          <a href="mailto:customerservice@kallibr.com.au" style="color:#ffffff;text-decoration:none;">customerservice@kallibr.com.au</a><br>
+          <strong style="color:#ffffff;">1300 668 141</strong><br>
+          <span style="color:#cdebea;font-size:10px;">RTO 32365</span>
+        </td>
+      </tr></table>
+    </td></tr>
+    <tr><td style="background-color:#ffd740;height:4px;line-height:4px;font-size:0;">&nbsp;</td></tr>
+    <tr><td style="padding:28px 28px 8px 28px;">
+      <h1 style="margin:0 0 14px 0;font-size:22px;font-weight:700;color:#1a202c;font-family:Helvetica,Arial,sans-serif;">One more thing before your course</h1>
+      <p style="margin:0 0 12px 0;font-size:15px;line-height:1.55;color:#2d3748;">Hi <strong>[Trainee Given Name]</strong>,</p>
+      <p style="margin:0 0 12px 0;font-size:15px;line-height:1.55;color:#2d3748;">Your <strong>[Workshop Name]</strong> course starts on <strong>[Workshop Start Date]</strong>, and we noticed you haven't completed your online onboarding yet.</p>
+      <p style="margin:0 0 12px 0;font-size:15px;line-height:1.55;color:#2d3748;">Getting this done now means you're all set for day one &mdash; no delays, no surprises.</p>
+      <p style="margin:0;font-size:15px;line-height:1.55;color:#2d3748;">Just so you know: this needs to be confirmed for each course you attend, so even if you've onboarded with us before, we'll need it again for this one.</p>
+    </td></tr>
+    <tr><td style="padding:20px 28px 0 28px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#009f9c;border-radius:8px;">
+        <tr><td style="padding:24px 24px;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:#ffd740;margin-bottom:8px;font-family:Helvetica,Arial,sans-serif;">Action Required</div>
+          <p style="margin:0 0 18px 0;font-size:15px;color:#ffffff;line-height:1.5;font-weight:500;">Log in or create your aXcelerate account to complete your onboarding:</p>
+          <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td>
+            <a href="#" style="display:inline-block;background-color:#ffd740;border-radius:6px;box-shadow:0 3px 6px rgba(0,0,0,0.18);padding:14px 28px;font-size:14px;font-weight:700;color:#1a2733;text-decoration:none;font-family:Helvetica,Arial,sans-serif;">[User Login Access Link Text]</a>
+          </td></tr></table>
+        </td></tr>
+      </table>
+    </td></tr>
+    <tr><td style="padding:28px 28px 8px 28px;">
+      <h2 style="margin:0 0 12px 0;font-size:16px;font-weight:700;color:#1a202c;font-family:Helvetica,Arial,sans-serif;border-left:4px solid #009f9c;padding-left:10px;">What you'll do once logged in</h2>
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <tr>
+          <td valign="top" width="26" style="vertical-align:top;padding:0 8px 12px 0;"><div style="width:20px;height:20px;background-color:#009f9c;border-radius:50%;">&nbsp;</div></td>
+          <td style="vertical-align:top;padding:0 0 12px 0;font-size:13px;line-height:1.55;color:#2d3748;">Confirm your personal details (Personal info, USI etc.)</td>
+        </tr>
+        <tr>
+          <td valign="top" width="26" style="vertical-align:top;padding:0 8px 12px 0;"><div style="width:20px;height:20px;background-color:#009f9c;border-radius:50%;">&nbsp;</div></td>
+          <td style="vertical-align:top;padding:0 0 12px 0;font-size:13px;line-height:1.55;color:#2d3748;">Review your course requirements and what to bring</td>
+        </tr>
+        <tr>
+          <td valign="top" width="26" style="vertical-align:top;padding:0 8px 0 0;"><div style="width:20px;height:20px;background-color:#009f9c;border-radius:50%;">&nbsp;</div></td>
+          <td style="vertical-align:top;font-size:13px;line-height:1.55;color:#2d3748;">Check any course notes from your trainer</td>
+        </tr>
+      </table>
+    </td></tr>
+    <tr><td style="padding:16px 28px 0 28px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f0fbf7;border-left:4px solid #009f9c;border-radius:4px;">
+        <tr><td style="padding:12px 16px;font-size:13px;line-height:1.55;color:#2d3748;">
+          <strong>Already logged in?</strong> No need to do anything &mdash; this reminder goes to all students booked into upcoming courses. You're all set.
+        </td></tr>
+      </table>
+    </td></tr>
+    <tr><td style="padding:24px 28px 0 28px;">
+      <p style="margin:0 0 4px 0;font-size:13px;line-height:1.6;color:#2d3748;"><strong>Need a hand?</strong></p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#2d3748;">Call us on <strong>1300 668 141</strong> or reply to this email &mdash; we're happy to walk you through it.</p>
+    </td></tr>
+    <tr><td style="padding:20px 28px 0 28px;font-size:13px;line-height:1.6;color:#2d3748;"><p style="margin:0 0 4px 0;">Kind Regards,</p></td></tr>
+    <tr><td style="padding:8px 28px 28px 28px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>
+        <td style="border-left:3px solid #009f9c;padding:4px 0 4px 12px;font-size:13px;line-height:1.6;color:#2d3748;">
+          <strong style="font-size:14px;color:#1a202c;">Kallibr Customer Service Team</strong><br>
+          <a href="mailto:customerservice@kallibr.com.au" style="color:#007370;text-decoration:none;">customerservice@kallibr.com.au</a><br>
+          <strong>1300 668 141</strong>
+        </td>
+      </tr></table>
+    </td></tr>
+    <tr><td style="background-color:#1a2733;padding:16px 28px;text-align:center;">
+      <div style="font-size:11px;color:#a0aec0;line-height:1.6;font-family:Helvetica,Arial,sans-serif;">
+        <strong style="color:#ffffff;">Kallibr Training</strong> &middot; Real experience is everything<br>
+        RTO 32365 &middot; <a href="mailto:customerservice@kallibr.com.au" style="color:#a0aec0;text-decoration:underline;">customerservice@kallibr.com.au</a> &middot; 1300 668 141
+      </div>
+    </td></tr>
+  </table>
+  </td></tr>
+</table>`;
+}
+
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('active');
+  document.getElementById('modal-box').style.maxWidth = '560px';
 }
 
 function copyText(elId, btn) {
