@@ -653,8 +653,8 @@
     <div class="section-body">
       <div class="workflow-grid">
 
-        <!-- Instant Exit -->
-        <div class="workflow-card">
+        <!-- Instant Exit SMS -->
+        <div class="workflow-card clickable" onclick="openModal('wf-instant')">
           <div class="wf-header" style="background:#ECFDF5;">
             <div class="wf-header-icon" style="background:white;">⚡</div>
             <div class="wf-header-text">
@@ -663,6 +663,7 @@
                 <span class="ch-tag sms">SMS</span>
               </div>
             </div>
+            <div class="wf-click-hint">Click to view details →</div>
           </div>
           <div class="wf-body">
             <div class="wf-fact">
@@ -674,14 +675,14 @@
               <div class="wf-fact-text">Sent to <strong>all students</strong> regardless of payment or course type.</div>
             </div>
             <div class="wf-fact">
-              <div class="wf-fact-icon">📝</div>
-              <div class="wf-fact-text">Content: Thank you + check email + log into Learner Portal.</div>
+              <div class="wf-fact-icon">⚙️</div>
+              <div class="wf-fact-text">Workflow: <strong>Lino - Immediate Text</strong> — standalone, not report based.</div>
             </div>
           </div>
         </div>
 
         <!-- Onboarding -->
-        <div class="workflow-card">
+        <div class="workflow-card clickable" onclick="openModal('wf-onboarding')">
           <div class="wf-header" style="background:#EFF6FF;">
             <div class="wf-header-icon" style="background:white;">🔁</div>
             <div class="wf-header-text">
@@ -691,15 +692,16 @@
                 <span class="ch-tag email">Email</span>
               </div>
             </div>
+            <div class="wf-click-hint">Click to view details →</div>
           </div>
           <div class="wf-body">
             <div class="wf-fact">
               <div class="wf-fact-icon">📅</div>
-              <div class="wf-fact-text">Starts <strong>10 days before</strong> the course date.</div>
+              <div class="wf-fact-text">Starts <strong>10 days before</strong> course — runs at <strong>3pm, max every 2 days</strong>.</div>
             </div>
             <div class="wf-fact">
-              <div class="wf-fact-icon">🔄</div>
-              <div class="wf-fact-text">Repeats <strong>every 2 days at 3:00 PM</strong> until student has onboarded in portal.</div>
+              <div class="wf-fact-icon">⚠️</div>
+              <div class="wf-fact-text">SMS capped at <strong>200 characters</strong>. Carrara has a separate workflow variant.</div>
             </div>
             <div class="wf-fact">
               <div class="wf-fact-icon">✅</div>
@@ -709,7 +711,7 @@
         </div>
 
         <!-- Cash Individual -->
-        <div class="workflow-card">
+        <div class="workflow-card clickable" onclick="openModal('wf-cash')">
           <div class="wf-header" style="background:#FFFBEB;">
             <div class="wf-header-icon" style="background:white;">💰</div>
             <div class="wf-header-text">
@@ -719,25 +721,26 @@
                 <span class="ch-tag email">Email</span>
               </div>
             </div>
+            <div class="wf-click-hint">Click to view details →</div>
           </div>
           <div class="wf-body">
             <div class="wf-fact">
               <div class="wf-fact-icon">📅</div>
-              <div class="wf-fact-text">Starts <strong>8 days before</strong> the course date.</div>
-            </div>
-            <div class="wf-fact">
-              <div class="wf-fact-icon">🔄</div>
-              <div class="wf-fact-text">Sends a <strong>maximum of every 4</strong> — prevents over-messaging.</div>
+              <div class="wf-fact-text">Starts <strong>8 days before</strong> course — runs at <strong>9am, max every 4 days</strong>.</div>
             </div>
             <div class="wf-fact">
               <div class="wf-fact-icon">👤</div>
-              <div class="wf-fact-text">For <strong>individual students</strong> paying by cash/COD.</div>
+              <div class="wf-fact-text">For <strong>individual students</strong> with outstanding COD payment.</div>
+            </div>
+            <div class="wf-fact">
+              <div class="wf-fact-icon">📄</div>
+              <div class="wf-fact-text">Currently uses the <strong>basic invoice email</strong> template.</div>
             </div>
           </div>
         </div>
 
         <!-- COD Corporate — full width -->
-        <div class="workflow-card wide">
+        <div class="workflow-card wide clickable" onclick="openModal('wf-corp')">
           <div class="wf-header" style="background:#EFF6FF;">
             <div class="wf-header-icon" style="background:white;">🏢</div>
             <div class="wf-header-text">
@@ -746,24 +749,25 @@
                 <span class="ch-tag email">Email only</span>
               </div>
             </div>
+            <div class="wf-click-hint">Click to view details →</div>
           </div>
           <div class="wf-body">
             <div class="wf-wide-grid">
               <div style="display:flex;flex-direction:column;gap:10px;">
                 <div class="wf-fact">
-                  <div class="wf-fact-icon">✉️</div>
-                  <div class="wf-fact-text">Payment / invoice reminder sent via <strong>email only</strong> — no SMS for corporate accounts.</div>
+                  <div class="wf-fact-icon">📅</div>
+                  <div class="wf-fact-text">Starts <strong>8 days before</strong> course — runs at <strong>9am, max every 4 days</strong>.</div>
                 </div>
                 <div class="wf-fact">
                   <div class="wf-fact-icon">📄</div>
-                  <div class="wf-fact-text">Uses the <strong>Basic Email Template</strong> — a CSQ-specific version is still to be confirmed.</div>
+                  <div class="wf-fact-text">Email only — uses <strong>basic invoice email</strong>. Edited report workflow.</div>
                 </div>
               </div>
               <div class="warn-box">
                 <div class="warn-box-icon">⚠️</div>
                 <div class="warn-box-text">
                   <strong>Dependency — accounts team action required:</strong><br>
-                  This workflow relies on the accounts team manually editing the <em>bill-to address</em> in the system before the automated email can send correctly. Currently a blocker.
+                  Reliant on accounts editing the bill-to address before automated send works correctly.
                 </div>
               </div>
             </div>
@@ -848,6 +852,401 @@
   <div class="legend-item"><div class="legend-dot" style="background:var(--c-auto)"></div> Automated — system / workflow</div>
   <div class="legend-item"><div class="legend-dot" style="background:var(--c-warn)"></div> Warning / blocker</div>
 </div>
+
+
+<!-- ══ MODALS ══ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+  <div class="modal-box" id="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<style>
+  /* Clickable card style */
+  .workflow-card.clickable {
+    cursor: pointer;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .workflow-card.clickable:hover {
+    box-shadow: 0 8px 28px rgba(15,23,42,0.14);
+    transform: translateY(-2px);
+  }
+  .wf-click-hint {
+    margin-left: auto;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    white-space: nowrap;
+    padding: 4px 10px;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid var(--rule);
+  }
+  .workflow-card.clickable:hover .wf-click-hint {
+    background: var(--dark);
+    color: white;
+    border-color: var(--dark);
+  }
+
+  /* Modal overlay */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.55);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    backdrop-filter: blur(3px);
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: #1E293B;
+    color: white;
+    border-radius: 16px;
+    padding: 32px;
+    max-width: 560px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalIn 0.2s ease;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+  }
+  @keyframes modalIn {
+    from { opacity:0; transform: translateY(12px) scale(0.97); }
+    to   { opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: rgba(255,255,255,0.2); }
+
+  /* Modal inner content */
+  .modal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+  .modal-badge.sms   { background: rgba(16,185,129,0.2); color: #6EE7B7; }
+  .modal-badge.email { background: rgba(59,130,246,0.2); color: #93C5FD; }
+  .modal-badge.both  { background: rgba(99,102,241,0.2); color: #C4B5FD; }
+  .modal-badge.warn  { background: rgba(249,115,22,0.2); color: #FED7AA; }
+
+  .modal-title {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+    color: white;
+  }
+  .modal-timing {
+    font-size: 12px;
+    color: #94A3B8;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .modal-section {
+    margin-bottom: 20px;
+  }
+  .modal-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #64748B;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .modal-section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* Workflow name pills */
+  .wf-name-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .wf-name-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'Fira Code', monospace;
+    font-size: 11.5px;
+    color: #CBD5E1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .wf-name-pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .wf-name-pill .sub {
+    font-size: 10px;
+    color: #64748B;
+    margin-top: 2px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+
+  /* SMS/Email content block */
+  .modal-content-block {
+    background: #0F172A;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 10px;
+  }
+  .modal-content-block-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .modal-content-block-label.sms   { color: #6EE7B7; }
+  .modal-content-block-label.email { color: #93C5FD; }
+
+  .modal-sms-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 12px;
+    line-height: 1.75;
+    color: #E2E8F0;
+    white-space: pre-wrap;
+    margin-bottom: 10px;
+  }
+  .modal-field {
+    display: inline;
+    background: rgba(99,102,241,0.25);
+    color: #C4B5FD;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 11px;
+  }
+
+  .modal-copy-btn {
+    background: #10B981;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .modal-copy-btn.email-btn { background: #3B82F6; }
+  .modal-copy-btn:hover { opacity: 0.85; }
+
+  .modal-note {
+    background: rgba(249,115,22,0.12);
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #FED7AA;
+    line-height: 1.5;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-top: 8px;
+  }
+
+  .modal-hint {
+    text-align: center;
+    font-size: 11px;
+    color: #475569;
+    margin-top: 20px;
+  }
+</style>
+
+<script>
+const modalData = {
+
+  'wf-instant': {
+    badge: 'sms', badgeLabel: '💬 SMS — All Students',
+    title: 'Instant Exit SMS',
+    timing: 'Fires immediately at time of booking · Single send · Not report based',
+    workflows: [
+      { name: 'Lino - Immediate Text', sub: 'Standalone workflow' }
+    ],
+    sms: {
+      text: `Hi [Trainee Given Name], thanks for booking your training! You must log into your Learner Portal to access your course details and complete your pre-course steps before Day 1.\nPlease check your email for the login details: [Trainee Email Address]\nNeed help? Call 1300 668 141 or reply to this SMS.`,
+      fields: ['Trainee Given Name', 'Trainee Email Address']
+    },
+    email: null,
+    note: null
+  },
+
+  'wf-onboarding': {
+    badge: 'both', badgeLabel: '💬 SMS + ✉️ Email',
+    title: 'Onboarding Workflow',
+    timing: 'Starts 10 days before course · Runs at 3:00 PM · Max once every 2 days · SMS capped at 200 characters',
+    workflows: [
+      { name: 'Lino - Onboarding not completed SMS - No Carrara', sub: 'Standard workflow' },
+      { name: 'Lino - Onboarding not completed SMS – Carrara Only', sub: 'Edited report workflow' },
+      { name: 'Report – Lino Onboarding Reminder – Carrara Toggle [94645]', sub: 'Report reference' }
+    ],
+    sms: {
+      text: `Hi [Trainee Given Name], reminder — you must log into your Learner Portal before your training starts to complete your onboarding for each course.\nPlease see link sent to: [Trainee Email Address]\nHaving trouble? Call 07 5576 5733 or reply to this SMS.`,
+      fields: ['Trainee Given Name', 'Trainee Email Address'],
+      note: 'Phone number shown is Carrara (GL Training). Non-Carrara version — confirm if 1300 668 141 applies.'
+    },
+    email: { text: 'Onboarding nudge email — sent alongside SMS. Template TBC.' },
+    note: null
+  },
+
+  'wf-cash': {
+    badge: 'both', badgeLabel: '💬 SMS + ✉️ Email — Cash Individual',
+    title: 'Cash Individual — Invoice Outstanding',
+    timing: 'Starts 8 days before course · Runs at 9:00 AM · Max once every 4 days',
+    workflows: [
+      { name: 'Lino - Invoice Reminders CASH INDIVIDUAL KALLIBR', sub: 'Primary workflow' },
+      { name: 'Jake - upcoming courses COD not paid - CASH INDIVIDUAL [94634]', sub: 'Report reference' }
+    ],
+    sms: {
+      text: `Hi [Trainee Given Name],\nThis is a reminder of your [Workshop Name] course that starts on [Workshop Start Date]. Please process your payment as soon as possible. (Refer to your email for payment details)\nCall our office on 1300 668 141 for any additional questions.`,
+      fields: ['Trainee Given Name', 'Workshop Name', 'Workshop Start Date']
+    },
+    email: { text: 'Currently uses the basic invoice email template.' },
+    note: null
+  },
+
+  'wf-corp': {
+    badge: 'email', badgeLabel: '✉️ Email Only — COD Corporate',
+    title: 'COD Corporate — Invoice Outstanding',
+    timing: 'Starts 8 days before course · Runs at 9:00 AM · Max once every 4 days',
+    workflows: [
+      { name: 'Lino - Invoice Reminders Cash Corporate', sub: 'Edited report workflow' },
+      { name: 'Jake - upcoming courses COD not paid - CASH INDIVIDUAL [94634]', sub: 'Report reference' }
+    ],
+    sms: null,
+    email: { text: 'Currently uses the basic invoice email template. No SMS for corporate accounts.' },
+    note: '⚠️ Dependency: Reliant on accounts team editing the bill-to address before workflow can send correctly.'
+  }
+
+};
+
+function openModal(id) {
+  const d = modalData[id];
+  if (!d) return;
+
+  const workflowsHtml = d.workflows.map(w => `
+    <div class="wf-name-pill">
+      <div class="dot" style="background:#6366F1;"></div>
+      <div>
+        <div>${w.name}</div>
+        <div class="sub">${w.sub}</div>
+      </div>
+    </div>`).join('');
+
+  const smsHtml = d.sms ? `
+    <div class="modal-content-block">
+      <div class="modal-content-block-label sms">💬 SMS Content</div>
+      <div class="modal-sms-text" id="sms-${id}">${formatFields(d.sms.text)}</div>
+      <button class="modal-copy-btn" onclick="copyText('sms-raw-${id}', this)">📋 Copy SMS</button>
+      <textarea id="sms-raw-${id}" style="position:absolute;opacity:0;pointer-events:none;">${d.sms.text}</textarea>
+      ${d.sms.note ? `<div class="modal-note">ℹ️ ${d.sms.note}</div>` : ''}
+    </div>` : '';
+
+  const emailHtml = d.email ? `
+    <div class="modal-content-block">
+      <div class="modal-content-block-label email">✉️ Email Content</div>
+      <div class="modal-sms-text">${d.email.text}</div>
+    </div>` : '';
+
+  const noteHtml = d.note ? `<div class="modal-note">${d.note}</div>` : '';
+
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-badge ${d.badge}">${d.badgeLabel}</div>
+    <div class="modal-title">${d.title}</div>
+    <div class="modal-timing">⏱ ${d.timing}</div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Workflow Names</div>
+      <div class="wf-name-list">${workflowsHtml}</div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-label">Message Content</div>
+      ${smsHtml}
+      ${emailHtml}
+      ${noteHtml}
+    </div>
+
+    <div class="modal-hint">Press Esc or click outside to close</div>
+  `;
+
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function formatFields(text) {
+  return text
+    .replace(/\n/g, '<br>')
+    .replace(/\[([^\]]+)\]/g, '<span class="modal-field">[$1]</span>');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+function copyText(elId, btn) {
+  const el = document.getElementById(elId);
+  el.select();
+  try {
+    navigator.clipboard.writeText(el.value).then(() => flashBtn(btn));
+  } catch(e) {
+    document.execCommand('copy');
+    flashBtn(btn);
+  }
+}
+
+function flashBtn(btn) {
+  const orig = btn.innerHTML;
+  btn.innerHTML = '✅ Copied!';
+  btn.style.background = '#059669';
+  setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
 
 </body>
 </html>
