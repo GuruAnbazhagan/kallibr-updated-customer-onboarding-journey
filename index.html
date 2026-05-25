@@ -57,14 +57,11 @@
     align-items: center;
     gap: 20px;
   }
- .header-logo {
-    background: #3D1F0F;
-    padding: 8px 14px;
-    border-radius: 10px;
+  .header-logo {
     display: flex;
     align-items: center;
+    flex-shrink: 0;
   }
-  .header-logo span { color: #818CF8; }
   .header-titles { flex: 1; }
   .header-titles h1 {
     font-size: 22px;
@@ -506,9 +503,9 @@
 
 <!-- PAGE HEADER -->
 <div class="page-header" style="animation-delay:0s;">
-<img src="https://kallibr.com.au/wp-content/uploads/2026/05/Kallibr-Training-Logo_Horizontal_for-on-Chocolate.png" alt="Kallibr Training" style="height:48px; width:auto;" />
+  <div class="header-logo"><img src="https://kallibr.com.au/wp-content/uploads/2026/05/Kallibr-Training-Logo_Horizontal_for-on-Chocolate.png" alt="Kallibr Training" style="height:44px; width:auto; display:block;" /></div>
   <div class="header-titles">
-    <h1>Customer Journey — Original Agreed Design</h1>
+    <h1>Customer Onboarding Journey</h1>
     <p>From first website visit through to automated post-booking workflows &amp; open to-dos</p>
   </div>
   <div class="header-badge">Wireframe v1</div>
